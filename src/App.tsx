@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import firebase from "./auth/firebase";
+import "@firebase/firestore";
 import "./App.css";
+import Sentences from "./sentences";
 
-async function login() {
+export async function login() {
   const provider = new firebase.auth.GoogleAuthProvider();
   await firebase.auth().signInWithPopup(provider);
 }
 
-async function logout() {
+export async function logout() {
   await firebase.auth().signOut();
 }
 
@@ -25,10 +27,13 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <p className="App-intro">UID: {user && user.uid}</p>
-
+      <p>learning chinese admin view</p>
+      {/* <p className="App-intro">UID: {user && user.uid}</p> */}
       {user ? (
-        <button onClick={e => logout()}>Google Logout</button>
+        <div>
+          <Sentences />
+          <button onClick={e => logout()}>Google Logout</button>
+        </div>
       ) : (
         <button onClick={e => login()}>Google Login</button>
       )}
